@@ -12,8 +12,9 @@ env/
 *.egg-info/
 *.log
 *.sqlite3
-
-
+files/
+*.toml
 *.log
+
 *.swp
 *.swo
