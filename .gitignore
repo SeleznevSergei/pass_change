@@ -13,8 +13,7 @@ env/
 *.log
 *.sqlite3
 
-files/
-*.log
 
+*.log
 *.swp
 *.swo
