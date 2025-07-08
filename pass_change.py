@@ -72,7 +72,7 @@ def main():
 
     # read xlsx file with users and change passwords
     if sip_pass_on:
-        for acc, password in zip(np.squeeze(file_users.values), np.squeeze(file_sip_pass.values)):
+        for acc, password in zip(file_users.values[0], file_sip_pass.values[0]):
             pass_change.user = acc
             if option == 2:
                 pass_change.gen_pass()
@@ -85,7 +85,7 @@ def main():
         if option == 2:
             pass_change.add_user_sip_passwords_to_excel()
         exit_changer()
-    for acc in np.squeeze(file_users.values):
+    for acc in file_users.values[0]:
         pass_change.user = acc
         if pass_on == 1:
             pass_change.switch_pass_on()

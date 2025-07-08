@@ -23,7 +23,7 @@ if [ ! -d "$DIR" ]; then
   pip install -r requirements.txt
   flag=1
 fi
-echo -e "\n\E[033;32mRun upload_calendar.py script""\033[1m\033[0m"
+echo -e "\n\E[033;32mRun pass_change.py script""\033[1m\033[0m"
 if [ $flag = 0 ]; then
   source $DIR/bin/activate
 fi
