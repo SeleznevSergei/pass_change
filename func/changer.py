@@ -80,9 +80,15 @@ class Changer:
             ))
 
     def create_excel(self, name_list: list):
-        df = pd.DataFrame({'UserName': name_list})
-        df.to_excel(self.path_user_xlsx, sheet_name='DomainUsers', index=False)
-        logging.info(f'{self.users_xlsx} has been created')
+        sip_lst = []
+        for _ in name_list:
+            sip_lst.append('')
+        df = pd.DataFrame({'UserName': name_list, 'SIP_Password': sip_lst})
+        try:
+            df.to_excel(self.path_user_xlsx, sheet_name='DomainUsers', index=False)
+            logging.info(f'{self.users_xlsx} has been created')
+        except Exception as e:
+            logging.error(f'Error when creating the file: {e}')
 
     def add_users_passwords_to_excel(self):
         df = pd.DataFrame(self.user_pass_dict)
@@ -92,7 +98,7 @@ class Changer:
     def add_user_sip_passwords_to_excel(self):
         df = pd.read_excel(self.path_user_xlsx, sheet_name='DomainUsers')
         sip_dict = dict(zip(self.user_pass_dict['UserName'], self.user_pass_dict['Password']))
-        df['SIP_pass'] = df['UserName'].map(sip_dict)
+        df['SIP_Password'] = df['UserName'].map(sip_dict)
         df.to_excel(self.path_user_xlsx, sheet_name='DomainUsers', index=False)
         logging.info(f'SIP passwords to the {self.users_xlsx} have been added')
 
