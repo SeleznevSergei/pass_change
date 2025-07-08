@@ -50,17 +50,18 @@ def main():
         option = int(input(text + "Ввод: "))
         if option in (1, 2):
             # creating a xlsx file with users
-            try:
-                check = os.path.exists(pass_change.path_user_xlsx)
-                if check:
-                    raise FileExistsError(
-                        f'File already exists, all actions have been '
-                        f'performed on the data in the file {pass_change.users_xlsx}'
-                    )
-                else:
+            check = os.path.exists(pass_change.path_user_xlsx)
+            if check:
+                delete = int(input(
+                    f"Файл {pass_change.users_xlsx} уже существует\n"
+                    f"1 - Удалить существующий файл и создать новый\n"
+                    f"2 - Использовать существующий файл {pass_change.users_xlsx}\n"
+                ))
+                if delete == 1:
+                    os.remove(pass_change.path_user_xlsx)
                     pass_change.create_excel(list_name)
-            except FileExistsError as e:
-                logging.info(e)
+            else:
+                pass_change.create_excel(list_name)
             if option == 1:
                 exit_changer()
             break
