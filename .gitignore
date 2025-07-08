@@ -13,5 +13,8 @@ env/
 *.log
 *.sqlite3
 
+files/
+*.log
+
 *.swp
 *.swo
