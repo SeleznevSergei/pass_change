@@ -1,0 +1,17 @@
+.idea/
+*.iml
+*.ipr
+*.iws
+
+__pycache__/
+*.py[cod]
+*.venv
+venv/
+.venv/
+env/
+*.egg-info/
+*.log
+*.sqlite3
+
+*.swp
+*.swo
