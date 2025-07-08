@@ -78,6 +78,7 @@ def main():
     # reading the xlsx file with users and changing passwords
     file_users = pd.read_excel(pass_change.path_user_xlsx, usecols=[0])
     file_sip_pass = pd.read_excel(pass_change.path_user_xlsx, usecols=[1])
+
     # read xlsx file with users and change passwords
     if sip_pass_on:
         for acc, password in zip(file_users.values, file_sip_pass.values):
@@ -102,15 +103,15 @@ def main():
         if pass_on == 0:
             pass_change.switch_pass_off()
         if change and pass_on != 0:
-            if pass_change.new_password == 'none':
-                pass_change.gen_pass()
-                pass_change.set_password()
-                pass_change.user_pass_dict['UserName'].append(pass_change.user)
-                pass_change.user_pass_dict['Password'].append(pass_change.new_password)
-                pass_change.new_password = 'none'
-            else:
-                print("ok")
-                pass_change.set_password()
+            if pass_change.get_acc_pass_on_off():
+                if pass_change.new_password == 'none':
+                    pass_change.gen_pass()
+                    pass_change.set_password()
+                    pass_change.user_pass_dict['UserName'].append(pass_change.user)
+                    pass_change.user_pass_dict['Password'].append(pass_change.new_password)
+                    pass_change.new_password = 'none'
+                else:
+                    pass_change.set_password()
 
     if pass_change.new_password == 'none' and change and not sip_pass_on:
         pass_change.add_users_passwords_to_excel()

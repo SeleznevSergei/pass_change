@@ -54,8 +54,8 @@ class Changer:
     def __dynamic_decorator(self, func):
         @hook_try_except(self.action_text)
         def wrapper():
-            func()
-        wrapper()
+            return func()
+        return wrapper()
 
     def server_connect(self):
         self.action_text = 'Connection to server'
@@ -119,3 +119,11 @@ class Changer:
     def switch_pass_on(self):
         self.action_text = f'Enable password for {self.user}{self.domain}'
         self.__dynamic_decorator(lambda: self.server.update_account_settings(self.user + self.domain, {'UseAppPassword': 'YES'}))
+
+    def get_acc_pass_on_off(self):
+        self.action_text = f'Get password status for {self.user}{self.domain}'
+        res = self.__dynamic_decorator(lambda: self.server.get_account_effective_settings(self.user + self.domain))
+        print(res['body']['UseAppPassword'])
+        if res['body']['UseAppPassword'].upper() == 'YES':
+            return True
+        return False
