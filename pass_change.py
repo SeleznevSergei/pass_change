@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 
 from func.changer import *
@@ -24,12 +26,18 @@ def main():
     pass_change.logging_setup_and_start()
     pass_change.server_connect()
     pass_change.server_login()
+    end_text = "Операции были успешно завершены!"
 
     def exit_changer():
         pass_change.server.disconnect()
         logging.info('The operations were completed successfully')
-        print('Операции были успешно завершены!')
+        print(end_text)
         sys.exit(0)
+
+    if sip_pass_on == 0 and pass_on == 2 and change == 0:
+        end_text = ("В конфигурационном файле установленные параметры не приведут к изменениям.\nВнесите изменения "
+                    "в конфигурационный файл")
+        exit_changer()
 
     list_name = list((pass_change.server.list_accounts(pass_change.domain[1:])['body']).keys())
     text = f"1 - Создать файл {pass_change.users_xlsx} со всеми аккаунтами домена {pass_change.domain}\n"
@@ -61,6 +69,7 @@ def main():
                     f"Файл {pass_change.users_xlsx} уже существует\n"
                     f"1 - Удалить существующий файл и создать новый\n"
                     f"2 - Использовать существующий файл {pass_change.users_xlsx}\n"
+                    f"Ввод: "
                 ))
                 if delete == 1:
                     os.remove(pass_change.path_user_xlsx)
@@ -91,6 +100,11 @@ def main():
             if option == 4:
                 pass_change.new_password = str(password[0])
                 if pass_change.new_password == 'nan':
+                    end_text = "Часть операций было успешно завершено. Подробности в лог-файле"
+                    logging.warning(
+                        f"The {pass_change.users_xlsx} file doesn't specify a password for the "
+                        f"{pass_change.user}{pass_change.domain} account"
+                    )
                     continue
                 pass_change.set_password(1)
         if option in (2, 3):
@@ -112,6 +126,12 @@ def main():
                     pass_change.new_password = 'none'
                 else:
                     pass_change.set_password()
+            else:
+                end_text = "Часть операций было успешно завершено. Подробности в лог-файле"
+                logging.warning(
+                    f"The password is disabled for the {pass_change.user}{pass_change.domain} account. "
+                    f"Can't changing password"
+                )
 
     if pass_change.new_password == 'none' and change and not sip_pass_on:
         pass_change.add_users_passwords_to_excel()

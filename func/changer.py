@@ -123,7 +123,6 @@ class Changer:
     def get_acc_pass_on_off(self):
         self.action_text = f'Get password status for {self.user}{self.domain}'
         res = self.__dynamic_decorator(lambda: self.server.get_account_effective_settings(self.user + self.domain))
-        print(res['body']['UseAppPassword'])
         if res['body']['UseAppPassword'].upper() == 'YES':
             return True
         return False
