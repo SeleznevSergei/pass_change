@@ -11,7 +11,7 @@
 
 # Структура проекта
 ```
-project/
+pass_change/
 ├── func/
 │   └── changer.py       # Основной модуль с классом Changer
 ├── pass_change.py       # Главный исполняемый скрипт
