@@ -29,8 +29,8 @@ if [ ! -d "$DIR" ]; then
     sudo $cmd install python3-venv -y
   fi
   echo -e "\n\E[033;32mInstalling the virtual environment and libraries""\033[1m\033[0m"
-  python3 -m venv $dir
-  source $dir/bin/activate
+  python3 -m venv $DIR
+  source $DIR/bin/activate
   if [ "$choice" -eq 1 ]; then
     pip install -r $path/requirements.txt
   else
