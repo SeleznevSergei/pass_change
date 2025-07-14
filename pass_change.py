@@ -1,5 +1,5 @@
 from func.changer import *
-#r
+
 path = "files/config.toml"
 with open(path, "rb") as f:
     config = tomllib.load(f)
