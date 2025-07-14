@@ -1,7 +1,3 @@
-import logging
-
-import numpy as np
-
 from func.changer import *
 
 path = "files/config.toml"

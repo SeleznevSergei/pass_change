@@ -2,12 +2,14 @@ import os
 import string
 import random
 import logging
-import tomllib
 import sys
+if  sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 import functools
-from openpyxl import load_workbook
 import pandas as pd
-
+from openpyxl import load_workbook
 from datetime import date
 from CGPCLI import Server
 
